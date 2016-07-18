@@ -82,7 +82,7 @@ s2_list = []
 # TODO: determine number residue in u, the residue numbers
 #       then loop over those
 	s2_list.append(s2_calculator(i))
-	resi_list.append(i)
+ 	resi_list.append(i)
 	
 
 # Plot of s2 order parameters versus residue number 
