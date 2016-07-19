@@ -3,41 +3,41 @@ import MDAnalysis
 
 class s2_calculator:
   """A method for Initializing s2 order parameter, and residue number"""
-  def __init__(self, u):
+  def __init__(self, u, t):
     # initializing the class variable set by the user
     self.u = u
-    
+	self.t = t
     # initializing class variable that will be used later
     self.s2_list = []
     self.resid_list = []
     self.nframes = len(self.u.trajectory)
     
   def get_s2(self, i=1):
-      # Set initial vector quantities equal to zero 
+    # Set initial vector quantities equal to zero 
     x2 = 0
     y2 = 0
     z2 = 0
     xy = 0
     xz = 0
-    yz = 0
+    yz = 0 
     # Make carbon atom selection
-    sel1 = self.u.select_atoms("resid %s and name C1'" % (i))
+    sel1 = self.u.select_atoms("resid %s and name self.t[0]" % (i))
     # Check to see if a carbon atom has been selected
     if sel1.n_atoms != 1:
       print "error must select 1 carbon atom" 
     # Make hydrogen atom selection  
-    sel2 = self.u.select_atoms("resid %s and name H1'" % (i))
+    sel2 = self.u.select_atoms("resid %s and name self.t[1]" % (i))
     # Check to see if a hydrogen atom has been selected
     if sel2.n_atoms != 1:
       print "error must select 1 hydrogen atom"
     # Loop over trajectory
     for ts in self.u.trajectory:
-      sel1 = self.u.select_atoms("resid %s and name C1'" % (i))
+      sel1 = self.u.select_atoms("resid %s and name self.t[0]" % (i))
       if sel1.n_atoms != 1:
         print "error must select 1 carbon atom" 
-      sel2 = self.u.select_atoms("resid %s and name H1'" % (i))
+      sel2 = self.u.select_atoms("resid %s and name self.t[1]" % (i))
       if sel2.n_atoms != 1:
-        print "error must select 1 carbon atom" 
+        print "error must select 1 hydrogen atom" 
       # Define vector CH
       vecCH = sel1.center_of_mass() - sel2.center_of_mass()
       import numpy
