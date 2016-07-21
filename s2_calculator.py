@@ -14,6 +14,12 @@ class s2_calculator:
         self.nframes = len(self.u.trajectory)
         self.nresid = len(self.u.atoms.residues)
         
+    def super_impose_frames(self):
+       """A method to superimpose frame in a trajectory to a common, reference frame (e.g., the first frame in the trajectory"""
+        
+    def select_bond_vector(self, i):
+        """A method to select a single bond vector"""
+                
     def get_s2(self, i=1):
         """A method for computing s2 order parameter for one residue"""
         # Set initial vector quantities equal to zero 
@@ -23,6 +29,7 @@ class s2_calculator:
         xy = 0
         xz = 0
         yz = 0 
+        
         # Make carbon atom selection
         sel1 = self.u.select_atoms("resid %s and name %s" % (i, self.t[0]))
         # Check to see if a carbon atom has been selected
@@ -35,12 +42,6 @@ class s2_calculator:
             print "error must select 1 hydrogen atom"
         # Loop over trajectory
         for ts in self.u.trajectory:
-            sel1 = self.u.select_atoms("resid %s and name %s" % (i, self.t[0]))
-            if sel1.n_atoms != 1:
-                print "error must select 1 carbon atom" 
-            sel2 = self.u.select_atoms("resid %s and name %s" % (i, self.t[1]))
-            if sel2.n_atoms != 1:
-                print "error must select 1 hydrogen atom" 
             # Define vector CH
             vecCH = sel1.center_of_mass() - sel2.center_of_mass()
             import numpy
@@ -48,14 +49,16 @@ class s2_calculator:
             # Get vector components
             xcomp = vecCH[0]
             ycomp = vecCH[1]
-            zcomp = vecCH[2]    
-        # Iterate through vector components
-        x2 += xcomp * xcomp
-        y2 += ycomp * ycomp
-        z2 += zcomp * zcomp
-        xy += xcomp * ycomp
-        xz += xcomp * zcomp
-        yz += ycomp * zcomp
+            zcomp = vecCH[2]
+                
+            # Iterate through vector components
+            x2 += xcomp * xcomp
+            y2 += ycomp * ycomp
+            z2 += zcomp * zcomp
+            xy += xcomp * ycomp
+            xz += xcomp * zcomp
+            yz += ycomp * zcomp
+            
         # Calculate vector averages
         x2 = x2 / self.nframes
         y2 = y2 / self.nframes
