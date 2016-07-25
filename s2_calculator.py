@@ -1,6 +1,32 @@
 import numpy as numpy
 import MDAnalysis 
 
+def initialize_universe(PSF, DCD0, align = True, REF = "reference.pdb", DCD1 = "pool_align.dcd"):
+    """ A method to set up universe for S2 calculation;
+    returns a universe that may or not be aligned to some reference"""
+
+		# load initial universe
+		u = MDAnalysis.Universe(PSF, DCD0)
+
+		# Test if alignment is requested; default is yes!
+		# align trajectory
+		write_reference(u, REF, i=0) 
+
+		# reads in reference
+		ref = Universe(PSF, REF)
+		rms_fit_trj(u, ref, filename=DCD1)
+
+		# read in new universe with aligned trajectory file
+		u = MDAnalysis.Universe(PSF, DCD1)
+		
+		return u
+
+def write_reference(u, output_name, i=0):
+  """ this function write out a specific frame in a universe"""
+	u.trajectory[i]
+	u.atoms.write(output_name)
+	
+
 class s2_calculator:
     """A method for initializing s2 order parameter, and residue number"""
     def __init__(self, u, t):
@@ -13,34 +39,17 @@ class s2_calculator:
         self.hydrogen_list = []
         self.nframes = len(self.u.trajectory)
 	    self.nresid = len(self.u.atoms.residues)
-
-	def super_impose_frames(self):
-		"""A method to superimpose frame in a trajectory to a common, reference frame (e.g., the first frame in the trajectory)"""
-		from MDAnalysis import *
-		from MDAnalysis.analysis.align import *
-		import MDAnalysis.analysis.align
-		u = self.u
-		l = self.u.select_atoms("all")
-		with MDAnalysis.Writer("l.dcd", l.n_atoms) as W:
-			ref = u.trajectory[0]
-			for ts in u.trajectory:
-				W.write(l)
-		ref = self.l
-		mobile = self.u
-		alignto(mobile, ref, select="all", mass_weighted=True)
-		
+	
     def select_bond_vector(self, i):
 		"""A method for selecting a single bond vector"""
-		for i in t:
+		for i in self.t:
 			self.sel1 = self.u.select_atoms("resid %s and name %s" % (i, self.t[0]))  
 			self.sel2 = self.u.select_atoms("resid %s and name %s" % (i, self.t[1])) 
-			if self.sel1.n_atoms != 1 and self.sel2.n_atoms != 1:
-				print "selection not present in structure"
 			
-			b = self.select_bond_vector(i)
-			if b < 0:
-				print "error"
-			else: #if this function is correct, indent functions below
+			if self.sel1.n_atoms != 1 and self.sel2.n_atoms != 1:
+				return False
+			else:
+				return True
 						
     def get_s2(self, i=1):
         """A method for computing s2 order parameter for one residue"""
@@ -52,45 +61,40 @@ class s2_calculator:
         xz = 0
         yz = 0
         
-        # Make carbon atom selection
-        #sel1 = self.u.select_atoms("resid %s and name %s" % (i, self.t[0]))
-        # Check to see if a carbon atom has been selected
-        #if sel1.n_atoms != 1:
-            #print "error must select 1 carbon atom" 
-        # Make hydrogen atom selection  
-        #sel2 = self.u.select_atoms("resid %s and name %s" % (i, self.t[1]))
-        # Check to see if a hydrogen atom has been selected
-        #if sel2.n_atoms != 1:
-            #print "error must select 1 hydrogen atom" 
-        # Loop over trajectory
-        for ts in self.u.trajectory:
-            # Define vector CH
-            vecCH = sel1.center_of_mass() - sel2.center_of_mass()
-            import numpy
-            vecCH = self.normalize_vec(vecCH) 
-            # Get vector components
-            xcomp = vecCH[0]
-            ycomp = vecCH[1]
-            zcomp = vecCH[2]     
-            
-            # Iterate through vector components
-            x2 += xcomp * xcomp
-            y2 += ycomp * ycomp
-            z2 += zcomp * zcomp
-            xy += xcomp * ycomp
-            xz += xcomp * zcomp
-            yz += ycomp * zcomp
-                  
-        # Calculate vector averages
-        x2 = x2 / self.nframes
-        y2 = y2 / self.nframes
-        z2 = z2 / self.nframes
-        xy = xy / self.nframes
-        xz = xz / self.nframes
-        yz = yz / self.nframes
-        # Calculate s2 
-        s2 = (1.5 * ((x2 ** 2) + (y2 ** 2) + (z2 ** 2))) + (3 * ((xy ** 2) + (xz ** 2) + (yz ** 2))) - 0.5
-        return s2
+        # Check selection        
+        s2 = -1
+        sele = self.select_bond_vector(i)        
+        if sele:
+					# Loop over trajectory
+					for ts in self.u.trajectory:
+							# Define vector CH
+							vecCH = sel1.center_of_mass() - sel2.center_of_mass()
+							import numpy
+							vecCH = self.normalize_vec(vecCH) 
+							# Get vector components
+							xcomp = vecCH[0]
+							ycomp = vecCH[1]
+							zcomp = vecCH[2]     
+						
+							# Iterate through vector components
+							x2 += xcomp * xcomp
+							y2 += ycomp * ycomp
+							z2 += zcomp * zcomp
+							xy += xcomp * ycomp
+							xz += xcomp * zcomp
+							yz += ycomp * zcomp
+									
+					# Calculate vector averages
+					x2 = x2 / self.nframes
+					y2 = y2 / self.nframes
+					z2 = z2 / self.nframes
+					xy = xy / self.nframes
+					xz = xz / self.nframes
+					yz = yz / self.nframes
+					# Calculate s2 
+					s2 = (1.5 * ((x2 ** 2) + (y2 ** 2) + (z2 ** 2))) + (3 * ((xy ** 2) + (xz ** 2) + (yz ** 2))) - 0.5
+			  return s2
+
             
     # A method for computing s2 order parameters for all residues
     def get_all_s2(self):

@@ -2,7 +2,10 @@ import s2_calculator
 from s2_calculator import s2_calculator
 import MDAnalysis 
 
-u = MDAnalysis.Universe("1R7Z.nomin.psf", "pool.dcd")
+PSF = "1R7Z.nomin.psf"
+DCD = "pool.dcd"
+u = initialize_universe(PSF, DCD)
+
 t = ("C1'", "H1'")
 nframes = len(u.trajectory)
 nresid = len(u.atoms.residues)
