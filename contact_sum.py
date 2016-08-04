@@ -1,31 +1,59 @@
-self.ci_list = []
-
 def get_contact_sum(self, i=1):
 	""" A method for computing contact sum"""
-	self.reff = 5
-	self.rcut = 5
-	for ts in u.trajectory:
-		self.sel1 = self.u.select_atoms("resid %s and name %s" % (i, self.t[0]))			
-		self.sel2 = self.u.select_atoms(around 5 self.sel1)		
-		for l in self.sel2:
-			if self.sel1.atoms.residues.resids == self.sel2.atoms.residues.resids:
-				return False
-			else:
-				return True 
-			r = self.sel1.center_of_mass() - self.sel2.center_of_mass()
-			rij = math.sqrt((r[0] ** 2) + (r[1] ** 2) + (r[2] ** 2))
-			if rij < self.rcut:
-				f = (-1 * (rij / self.reff))
-				c = math.exp(f)
-				c += c
-				return c
-				
-	for i in range(self.sel2.atoms.residues.resids):
-		self.ci_list.append(get_contact_sum(i))
-		
-		
-		
-import numpy.linalg
-from numpy.linalg import norm
+	import MDAnalysis.lib.distances
+	from MDAnalysis.lib.distances import distance_array 
+	self.r_eff = 5.0
+	self.r_cut = 5.0
+	reference = self.u.select_atoms("resid %s and name %s" % (i, self.t[0]))			
+	close_contacts = self.u.select_atoms("(around 5.0 resid %s and name %s) and (not resid %s) and (not type hydrogen)" % (i, self.t[0], i))		
+	r_ij = distance_array(reference.coordinates(), close_contacts.coordinates())
+	Ci = numpy.sum(numpy.exp(-1 * (r_ij / r_eff)))
+	return Ci
+	
+	
+	
+	
+- create an array that contains distances between all atom distance coordinates of u
+- create a function that can identify the index of carbon atom selection
+- use the carbon atom index to slice the array and get distances
+- loop over the array 
+- accumulate sums 
+	
+### Alternative method for computing contact sum
+def get_carbon_atom_index(self):
+	""" An Alternative method for computing contact sum"""
+	dismat = distance_array(self.u.atoms.coordinates(), self.u.atoms.coordinates())
+	# Find carbon atom selection index 
+	for i in self.u.select_atoms("name C1'"):
+		print i
+	# Use carbon atom index to slice array
+	dismat[8]
+	# Get distances
+	carbon_dist = distance_array(reference.coordinates(),close_contacts.coordinates())
+	# Get contact sum
+	Ci = numpy.sum(numpy.exp(-1 * (carbon_dist / r_eff)))
+	return Ci
+	
+	
+	
+	
+	
+	
+	for i, j in enumerate(dismat):
+		if j == "C1'":
+			print i
+			
+	print([atom.index for atom in u.atoms if atom.element.symbol is "C1'"])
+	
+	for i in u.select_atoms("resid %s and name C1'" % (i)):
+		print i
 
-numpy.linalg.norm(a - b) for a, b in zip(self.sel1, self.sel2(i))
+	u.select_atoms("name C1'").coordinates()
+	
+	for i in dismat[8]:
+		if i < 5.0:
+			print i
+			
+	for i in dismat[8]:
+         if i < 5.0:
+   					array.append(i)

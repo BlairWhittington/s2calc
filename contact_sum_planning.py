@@ -33,7 +33,7 @@ def get_contact_sum(self, i=1):
 	""" A method for computing the contact sum"""
 	self.reff = 
 	self.rcut = 5
-	for ts in u.trajectory:
+	for ts in self.u.trajectory:
 		a = self.u.select_atoms("resid %s and name %s" % (i, self.t[0]))
 		self.sel2 = self.u.select_atoms(around 5 self.sel1 "resid %s and name %s" % (i))
 		b = self.sel2
@@ -79,3 +79,70 @@ def get_contact_sum(self, i=1):
 	d = self.sel2.center_of_mass()
 	self.rij = math.sqrt(((b[0] - d[0]) ** 2) + ((b[1] - d[1]) ** 2) + ((b[2] - d[2]) ** 2))
 	self.rij = self.sel2.center_of_mass() - self.sel1.center_of_mass()
+	
+	
+	
+	
+	
+	
+	
+	### Planning for alternative method 
+	
+- create an array that contains distances between all coordinates of u
+- create a function that can identify the index of carbon atom selection
+- use the carbon atom index to slice the array and get distances
+- loop over the array 
+- accumulate sums 
+	
+### Alternative method for computing contact sum
+dismat = distance_array(self.u.atoms.coordinates(), self.u.atoms.coordinates())
+# Find carbon atom selection index
+def get_carbon_atom_index(self):
+	""" An Alternative method for computing contact sum"""
+	# Find carbon atom selection index
+	 
+# Use carbon atom index to slice array
+dismat[insert atom index]
+# Get distances
+carbon_dist = distance_array(,)
+# Get contact sum
+Ci = numpy.sum(numpy.exp(-1 * (carbon_dist / r_eff)))
+return Ci
+	
+	
+	
+	print([atom.index for atom in u.atoms if atom.element.symbol is "C1'"])
+	
+	
+	
+	import MDAnalysis.core.analysis.AtomGroup
+	from MDAnalysis.core.analysis.AtomGroup import AtomGroup
+	ag = u.select_atoms("all")
+		
+	carbon_selection = self.u.select_atoms("resids %s and name %s'" % (i, t[0]))
+	
+		for i in carbon_dist:
+		Ci = numpy.exp(-1 * (carbon_dist / r_eff))	
+		Ci += Ci
+		return Ci 
+		
+	for row in array:
+		for e in row:
+			print array.index(row),row.index(e)
+
+	carbon_selection = self.u.select_atoms("resid %s and name C1'" % (i))
+	
+	
+	
+		dismat[carbon atom index]
+	b = dismat[carbon atom index]
+	for i in b:
+		Ci = numpy.exp(-1 * (b / r_eff))
+		Ci += Ci
+		return Ci
+	
+	reference = u.select_atoms("resid %s and name %s" % (i, t[0]))
+	sreference = u.select_atoms("resid %s and name %s" % (i+1, t[0]))
+	
+	name = "C1'"
+	atomlist = [atom for atom in u.atoms  if name == atom.name]
