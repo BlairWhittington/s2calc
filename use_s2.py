@@ -2,8 +2,8 @@ import s2_calculator
 from s2_calculator import *
 import contact_sum
 from contact_sum import *
-#import contact_sum_method_2
-#from contact_sum_method_2 import *
+#import alternative_contact_sum
+#from alternative_contact_sum import *
 import MDAnalysis 
 
 PSF = "1R7Z.nomin.psf"
@@ -28,10 +28,20 @@ s2.s2_list = [ '%.8f' % i for i in s2.s2_list]
 for i, v in zip(s2.resid_list, s2.s2_list):
 	print i , v , t[0], t[1]
 	
+# Use for contact_sum function
+r_cut=5.0
+r_eff=5.0
+sum = contact_sum(u, t, r_cut, r_eff)
+sum.get_contact_sum()	
 
-sum = contact_sum(u, t)
-sum.get_contact_sum()
 
-#sum = contact_sum(u, t)
-#sum.get_carbon_atom_index()
-#sum.get_contact_sum()
+#sum.time_list = [ '%. f' % for i in sum.time_list]
+#for i, v in zip(sum.cutoff_list, sum.time_list):
+	#print i, v
+
+# Use for alternative_contact_sum function
+#get_contact_sum(u, r_cut=5.0, r_eff=5.0)
+
+
+
+
