@@ -82,15 +82,14 @@ class s2_calculator:
             yz = yz / self.nframes
             # Calculate s2 
             s2 = (1.5 * ((x2 ** 2) + (y2 ** 2) + (z2 ** 2))) + (3 * ((xy ** 2) + (xz ** 2) + (yz ** 2))) - 0.5
-            return s2
+        return s2
             
-    # A method for computing s2 order parameters for all residues
     def get_all_s2(self):
         """A method for iterating over all residues to compute all s2 order parameters"""
         for i in self.u.atoms.residues.resids:      
             self.s2_list.append(self.get_s2(i))
             self.resid_list.append(i)
-
+        
     def get_scatterplot(self):
         """A method for plotting s2 vs. residue number"""
         from matplotlib import pyplot
@@ -109,14 +108,6 @@ class s2_calculator:
         # Show the plot 
         pyplot.show()
         
-    def get_table(self):
-        """ A method for printing a table of resids, s2 order parameters, and 
-        bond vector selections"""
-        self.s2.s2_list = [ '%.8f' % i for i in self.s2.s2_list]
-        self.s2.resid_list = [ '%.2i' % i for i in self.s2.resid_list]
-        for i, v in zip(self.s2.resid_list, self.s2.s2_list):
-            print i , v , self.t[0], self.t[1]
-        
     # Normalize vectorCH  
     def norm_vec(self, v):
         """get vector norm"""
@@ -127,5 +118,4 @@ class s2_calculator:
         vecCH = (v / self.norm_vec(v))
         return vecCH
     
-
-  
+    
