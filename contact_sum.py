@@ -27,7 +27,8 @@ class contact_sum:
         
     def get_all_contact_sums(self):
         """A method for looping over residues to compute all contact sums"""
-        for i in self.u.select_atoms("name %s" % (self.t[1])).residues.resids:
+        for i in self.u.atoms.residues.resids:
+        #for i in self.u.select_atoms("name %s" % (self.t[1])).residues.resids:
         	self.Ci_list.append(self.get_contact_sum(i)) 
         	self.resid_list.append(i)
     

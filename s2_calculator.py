@@ -86,7 +86,8 @@ class s2_calculator:
             
     def get_all_s2(self):
         """A method for iterating over all residues to compute all s2 order parameters"""
-        for i in self.u.select_atoms("name %s" % (self.t[1])).residues.resids:     
+        for i in self.u.atoms.residues.resids:
+        #for i in self.u.select_atoms("name %s" % (self.t[1])).residues.resids:     
             self.s2_list.append(self.get_s2(i))
             self.resid_list.append(i)
         

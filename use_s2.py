@@ -29,7 +29,7 @@ def main():
         ### Use for s2_calculator ###
         s2 = s2_calculator(u, t)
         s2.get_all_s2()
-        s2.get_scatterplot()
+        #s2.get_scatterplot()
     
         ### Use for contact_sum ###
         r_cut=7.0   
