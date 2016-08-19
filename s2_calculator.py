@@ -38,7 +38,7 @@ class s2_calculator:
         """A method for selecting a single bond vector"""
         self.sel1 = self.u.select_atoms("resid %s and name %s" % (i, self.t[0]))  
         self.sel2 = self.u.select_atoms("resid %s and name %s" % (i, self.t[1])) 
-        if self.sel1.n_atoms != 1 and self.sel2.n_atoms != 1:
+        if self.sel1.n_atoms != 1 or self.sel2.n_atoms != 1:
             return False
         else:
             return True
@@ -86,7 +86,7 @@ class s2_calculator:
             
     def get_all_s2(self):
         """A method for iterating over all residues to compute all s2 order parameters"""
-        for i in self.u.atoms.residues.resids:      
+        for i in self.u.select_atoms("name %s" % (self.t[1])).residues.resids:     
             self.s2_list.append(self.get_s2(i))
             self.resid_list.append(i)
         
@@ -99,6 +99,8 @@ class s2_calculator:
         x = self.resid_list
         # Assign the variable y to list of s2 order parameters
         y = self.s2_list
+        # Title the scatterplot
+        pyplot.title('s2 Order Parameters vs. Resids')
         # Plot the assigned variables as dots connected by lines
         pyplot.plot(x,y, marker='o', linestyle='-', color='b')
         # Label the x-axis Residue Number
