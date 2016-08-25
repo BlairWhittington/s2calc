@@ -59,7 +59,7 @@ class s2_calculator:
         yz = 0   
         # Check selection        
         s2 = -1
-        sele = self.select_bond_vector(i, l)        
+        sele = self.select_bond_vector(i, l)      
         if sele:
           # Loop over trajectory
             for ts in self.u.trajectory:
