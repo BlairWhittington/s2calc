@@ -33,22 +33,22 @@ class s2_calculator:
         self.sel2_list = []
         self.s2_list = []
         self.resid_list = []
+        self.bond_vector_list = []
         self.nframes = len(self.u.trajectory)
         self.nresid = len(self.u.atoms.residues)
         
-    def select_bond_vector(self, i=1):
+    def select_bond_vector(self, i, l):
         """A method for selecting a single bond vector"""
-        for l in self.t:
-            self.sel1 = self.u.select_atoms("resid %s and name %s" % (i, l[0]))
-            self.sel1_list.append(self.sel1)
-            self.sel2 = self.u.select_atoms("resid %s and name %s" % (i, l[1]))
-            self.sel2_list.append(self.sel2)        
+        self.sel1 = self.u.select_atoms("resid %s and name %s" % (i, l[0]))
+        self.sel1_list.append(self.sel1)
+        self.sel2 = self.u.select_atoms("resid %s and name %s" % (i, l[1]))
+        self.sel2_list.append(self.sel2)        
         if self.sel1.n_atoms != 1 or self.sel2.n_atoms != 1:
             return False
         else:
             return True
                       
-    def get_s2(self, i=1):
+    def get_s2(self, i, l):
         """A method for computing s2 order parameter for one residue"""
         # Set initial vector quantities equal to zero 
         x2 = 0
@@ -58,12 +58,12 @@ class s2_calculator:
         xz = 0
         yz = 0   
         # Check selection        
-       	s2 = -1
-        sele = self.select_bond_vector(i)        
+        s2 = -1
+        sele = self.select_bond_vector(i, l)        
         if sele:
-        	# Loop over trajectory
+          # Loop over trajectory
             for ts in self.u.trajectory:
-            	# Define vector CH
+              # Define vector CH
                 vecCH = self.sel1.center_of_mass() - self.sel2.center_of_mass()
                 import numpy
                 vecCH = self.normalize_vec(vecCH) 
@@ -92,10 +92,10 @@ class s2_calculator:
     def get_all_s2(self):
         """A method for iterating over all residues to compute all s2 order parameters"""
         for l in self.t:
-        	for i in self.u.atoms.residues.resids:
-        	#for i in self.u.select_atoms("name %s" % (self.t[1])).residues.resids:     
-        		self.s2_list.append(self.get_s2(i))
-        		self.resid_list.append(i)
+          for i in self.u.atoms.residues.resids:
+            self.s2_list.append(self.get_s2(i, l))
+            self.resid_list.append(i)
+            self.bond_vector_list.append(l)
             
     def get_scatterplot(self):
         """A method for plotting s2 vs. residue number"""

@@ -13,24 +13,29 @@ class contact_sum:
         self.Ci_list = []
         self.resid_list = []
                          
-    def get_contact_sum(self, i=1):
+    def get_contact_sum(self, i, l):
         """A method for computing contact sum"""
         # Assign reference to first atom selection
-        reference = self.u.select_atoms("resid %s and name %s" % (i, self.t[0]))  
-        # Select all atoms within 5.0A of first atom selection
-        close_contacts = self.u.select_atoms("(around %f resid %s and name %s) and (not resid %s) and (not type 102 103 104 109 111 112)" % (self.r_cut, i, self.t[0], i))      
-        # Compute the distances between reference and close_contacts coordinates
-        r_ij = distance_array(reference.coordinates(), close_contacts.coordinates())
-        #Compute contact sum
-        Ci = numpy.sum(numpy.exp(-1 * (r_ij / self.r_eff)))
+        reference = self.u.select_atoms("resid %s and name %s" % (i, l[0]))  
+        # Select all atoms within 5.0A of first atom selection       
+        try:
+          close_contacts = self.u.select_atoms("(around %f resid %s and name %s) and ((not resid %s) and (not name H*))" % (self.r_cut, i, l[0], i)) 
+          # Compute the distances between reference and close_contacts coordinates
+          r_ij = distance_array(reference.coordinates(), close_contacts.coordinates())
+          #Compute contact sum
+          Ci = numpy.sum(numpy.exp(-1 * (r_ij / self.r_eff)))         
+        except:
+          print l[0], i
+          Ci = -1
         return Ci
         
     def get_all_contact_sums(self):
         """A method for looping over residues to compute all contact sums"""
-        for i in self.u.atoms.residues.resids:
-        #for i in self.u.select_atoms("name %s" % (self.t[1])).residues.resids:
-        	self.Ci_list.append(self.get_contact_sum(i)) 
-        	self.resid_list.append(i)
+        for l in self.t:
+          for i in self.u.atoms.residues.resids:
+          #for i in self.u.select_atoms("name %s" % (self.t[1])).residues.resids:
+            self.Ci_list.append(self.get_contact_sum(i, l)) 
+            self.resid_list.append(i)
     
  
  

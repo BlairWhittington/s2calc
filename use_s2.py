@@ -23,8 +23,8 @@ def main():
         DCD0=args[1]
 
         u = initialize_universe(PSF, DCD0)
-        #t = ("C1'", "H1'")
-        t = ("C1'", "H1'"), ("C2", "H2"), ("C5", "H5"), ("C6", "H6"), ("C8", "H8"), ("N1", "H1"), ("N3", "H3")
+        t = [("C1'", "H1'")]
+        t = [("C1'", "H1'"), ("C2", "H2"), ("C5", "H5"), ("C6", "H6"), ("N1", "H1"), ("N3", "H3"),("C8", "H8")]
         
         nframes = len(u.trajectory)
         nresid = len(u.atoms.residues)    
@@ -33,20 +33,20 @@ def main():
         s2 = s2_calculator(u, t)
         s2.get_all_s2()
         #s2.get_scatterplot()
-        print s2.s2_list
-       	
+        #print s2.s2_list
+        
         ### Use for contact_sum ###
-        #r_cut=5.0   
-        #r_eff=5.0
-        #sum = contact_sum(u, t, r_cut, r_eff)
-        #sum.get_all_contact_sums()
+        r_cut=20.0   
+        r_eff=5.0
+        sum = contact_sum(u, t, r_cut, r_eff)
+        sum.get_all_contact_sums()
 
         ### Table of resids, s2 order parameters, Ci values, and atom selections ###
-        #s2.resid_list = [ '%.2i' % i for i in s2.resid_list]
-        #s2.s2_list = [ '%.8f' % i for i in s2.s2_list]
-        #sum.Ci_list = ['%.8f' % i for i in sum.Ci_list]
-        #for i, v, f in zip(s2.resid_list, s2.s2_list, sum.Ci_list):
-            #print i, v, f, t[0], t[1]   
+        s2.resid_list = [ '%.2i' % i for i in s2.resid_list]
+        s2.s2_list = [ '%.8f' % i for i in s2.s2_list]
+        sum.Ci_list = ['%.8f' % i for i in sum.Ci_list]        
+        for i, v, f, l in zip(s2.resid_list, s2.s2_list, sum.Ci_list, s2.bond_vector_list):
+            print i, v, f, l
   
 if __name__ == "__main__":
     main()
