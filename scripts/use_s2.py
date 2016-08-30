@@ -1,7 +1,5 @@
-import test_all
-from test_all import *
-#import s2_calculator
-#from s2_calculator import *
+import s2_calculator
+from s2_calculator import *
 import contact_sum
 from contact_sum import *
 import MDAnalysis 
@@ -25,8 +23,7 @@ def main():
 
         u = initialize_universe(PSF, DCD0)
         
-        t = [("C8", "H8")]
-        t = [("C1'", "H1'"), ("C2", "H2"), ("C5", "H5"), ("C6", "H6"), ("N1", "H1"), ("N3", "H3"), ("C8", "H8")]
+        t = [("C1'", "H1'"), ("C2", "H2"), ("C5", "H5"), ("C6", "H6"), ("C8", "H8"), ("N1", "H1"), ("N3", "H3")]
         
         nframes = len(u.trajectory)
         nresid = len(u.atoms.residues)    
@@ -38,7 +35,7 @@ def main():
         #print s2.s2_list
         
         ### Use for contact_sum ###
-        r_cut=20.0   
+        r_cut=25.0   
         r_eff=5.0
         sum = contact_sum(u, t, r_cut, r_eff)
         sum.get_all_contact_sums()
