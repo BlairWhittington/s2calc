@@ -1,10 +1,13 @@
 #!/bin/bash 
-rm -rf output.txt
-r_cut="25.0"
-rnas="1R7Z 1R7W 1XHP 1ZC5 2FDT 2JWV 2JYM 2L5Z 2LDT 2QH3"
-#rnas="1R7Z 1R7W 1SCL 1XHP 1ZC5 2FDT 2JWV 2JYM 2L3E 2L5Z 2LDT 2QH3"
-for rna in $rnas
+r_cuts="5.0 10.0 15.0 20.0 25.0"
+rnas="1r7w 1r7z 1xhp 1zc5 2fdt 2jwv 2jym 2l3e 2l5z 2ldt 2qh3 jxs k8s k41"
+for r_cut in $r_cuts
 do
-    python scripts/use_s2.py -i ${rna} data/${rna}/${rna}.nomin.psf data/${rna}/pool.dcd | grep s2calc >> output/${r_cut}.txt
+	rm -rf output/database_${r_cut}.txt
+	for rna in $rnas
+	do
+			python scripts/use_s2.py -i ${rna} data/${rna}/${rna}.nomin.psf data/${rna}/pool.dcd | grep s2calc >> output/database_${r_cut}.txt
+	done
 done
+
 
