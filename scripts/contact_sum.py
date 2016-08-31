@@ -9,6 +9,7 @@ class contact_sum:
         self.t = t
         self.r_cut = r_cut
         self.r_eff = r_eff
+        self.N_list = []
         self.Ci_list = []
                    
     def get_contacts(self, i , l):
@@ -23,18 +24,33 @@ class contact_sum:
             self.close_contacts = self.u.select_atoms("(around %f resid %s and name %s) and ((not resid %s) and (not name H*))" % (self.r_cut, i, l[0], i))
             return True
             
-    def get_contact_sum(self, i, l):
-        """A method for checking if selection exists"""
-        Ci = -1 
-        selection = self.get_contacts(i, l)
-        if selection:
-            r_ij = distance_array(self.reference.coordinates(), self.close_contacts.coordinates())
-            Ci = numpy.sum(numpy.exp(-1 * (r_ij / self.r_eff))) 
-        return Ci
+	def get_distances(self, i, l):
+		"""A method for sorting all distances within r_cut and for selecting the first 50"""
+		selection = self.get_contacts(i, l)
+		if selection:
+			r_ij = distance_array(self.reference.coordinates(), self.close_contacts.coordinates())
+			r_ij.sort()
+			N = r_ij[0][0:50]
+		return N
+	
+	def get_all_distances(self):
+		"""A method for looping over residues to obtain all distances"""
+		for l in self.t:
+			for i in self.u.atoms.residues.resids:
+				self.N_list.append(self.get_distances(i, l))
+			
+    #def get_contact_sum(self, i, l):
+        #"""A method for checking if selection exists"""
+        #Ci = -1 
+        #selection = self.get_contacts(i, l)
+        #if selection:
+            #r_ij = distance_array(self.reference.coordinates(), self.close_contacts.coordinates())
+            #Ci = numpy.sum(numpy.exp(-1 * (r_ij / self.r_eff))) 
+        #return Ci
     
-    def get_all_contact_sums(self):
-        """A method for looping over residues to compute all contact sums"""
-        for l in self.t:
-            for i in self.u.atoms.residues.resids:
-                self.Ci_list.append(self.get_contact_sum(i, l)) 
+    #def get_all_contact_sums(self):
+        #"""A method for looping over residues to compute all contact sums"""
+        #for l in self.t:
+            #for i in self.u.atoms.residues.resids:
+                #self.Ci_list.append(self.get_contact_sum(i, l)) 
 
