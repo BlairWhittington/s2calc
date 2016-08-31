@@ -137,7 +137,7 @@ class Features:
         #print "Comparing Time from HBond and Index: %s %s"%(self.HBtable['time'],self.ts)   
         #self.rnaRNA.table.astype([('time', '<i8'), ('donor_idx', '<i8'), ('acceptor_idx', '<i8'), ('donor_resnm', 'S4'), ('donor_resid', '<i8'), ('donor_atom', 'S4'), ('acceptor_resnm', 'S4'), ('acceptor_resid', '<i8'), ('acceptor_atom', 'S4'), ('distance', '<f8'), ('angle', '<f8')])     
         for r in self.HBtable[numpy.where(self.HBtable['time']==self.ts)]:            
-            if resnum in [r[4],r[7]]:
+            if resnum in [r[4],r[7]] and r[4] != r[7]:
                 hbDist = r[9]
                 hbAngle = r[10]
                 atom1 = r[1]-1
