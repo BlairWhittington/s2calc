@@ -35,7 +35,7 @@ def main():
         #print s2.s2_list
         
         ### Use for contact_sum ###
-        r_cut=25.0   
+        r_cut=20.0
         r_eff=5.0
         sum = contact_sum(u, t, r_cut, r_eff)
         sum.get_all_contact_sums()
