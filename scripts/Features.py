@@ -10,7 +10,7 @@ from MDAnalysis import Universe
 
 class Features:
     """Features of S2 calculation"""
-    def __init__(self, universe, hbondAtoms=False,stacticsLigandCalculate=False, radius=9999.0, rcRadius=9999.0, stackDistanceCutOff=5.1, stackingOverlapBuffer=1.00, stackAngularCutOff=30.0, hBondAngularCutoff=145, hBondDistanceCutoff=3.5): 
+    def __init__(self, universe, hbondAtoms=False,stacticsLigandCalculate=False, radius=9999.0, rcRadius=9999.0, stackDistanceCutOff=6.0, stackingOverlapBuffer=1.0, stackAngularCutOff=30.0, hBondAngularCutoff=145, hBondDistanceCutoff=3.5): 
         """Initialize Features Class
         """
         self.universe = universe
@@ -102,7 +102,7 @@ class Features:
                 #hydrogen bonding
                 self.system['%s'%i]['hbond'] = self.hBondEnergyCompute(i)
                 #torsions
-                self.system['%s'%i]['tors'] = self.tors(i)
+                #self.system['%s'%i]['tors'] = self.tors(i)
                 #stacking interactions
                 self.system['%s'%i]['stacking'] = self.stackingEnergyCompute(i)
 
@@ -177,7 +177,7 @@ class Features:
         reference = self.bases_only(self.universe.selectAtoms("resid %s"%(ref_residue)))
         comparison = self.bases_only(self.universe.selectAtoms("(around %f resid %s) and (not (resid %s))"%(self.radius,ref_residue,ref_residue)))
         norm1 = self.base_plane_normal(reference)
-        base_radius = numpy.max(distance_array(self.residue_COM(reference),reference.coordinates()))-self.stackingOverlapBuffer
+        base_radius = numpy.max(distance_array(self.residue_COM(reference),reference.coordinates()))+self.stackingOverlapBuffer
         stacking_score = 0.0
         stacking_score_ligand = 0.0
         for i in comparison.residues.resnums:
@@ -187,7 +187,7 @@ class Features:
             if (com_distances < self.stackDistanceCutOff):
                     norm2 = self.base_plane_normal(check)
                     angle = numpy.rad2deg(numpy.arccos(numpy.dot(norm1,norm2)))
-                    angle = min(180-angle,angle)
+                    angle = min(180-angle,angle)                    
                     if ((angle>=-1*self.stackAngularCutOff) and (angle<=self.stackAngularCutOff)):
                          for coord in check.coordinates():
                              test = coord - self.residue_COM(reference)

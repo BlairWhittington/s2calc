@@ -12,13 +12,13 @@ from Features import Features
 #initialize variables from the commandline
 
 PSF="/Users/atfrank/GitSoftware/s2calc/data/2l3e/reference.psf"
-DCD0="/Users/atfrank/GitSoftware/s2calc/data/2l3e/test.dcd"
-universe = initialize_universe(PSF, DCD0)
+DCD0="/Users/atfrank/GitSoftware/s2calc/data/2l3e/reference.pdb"
+universe = MDAnalysis.Universe(PSF, DCD0)
 new = Features(universe)
-for ts in universe.trajectory:
-		new.ts = ts.frame-1
-		new.loadCoordinateDependentDataStructures()
-		new.residueLevelFeaturesCompute()
+new.unique_HBtable()
+new.ts = 0
+new.loadCoordinateDependentDataStructures()
+new.residueLevelFeaturesCompute()
+for key in range(1,35):
+	print key, new.system['%i'%key]
 
-
-647-3983
