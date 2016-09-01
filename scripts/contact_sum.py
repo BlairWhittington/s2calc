@@ -10,7 +10,7 @@ class contact_sum:
         self.n = n
         self.r_cut = r_cut
         self.r_eff = r_eff
-        self.distance_list = []
+        self.distance_list = {}
         self.Ci_list = []
                    
     def get_contacts(self, i , l):
@@ -32,13 +32,14 @@ class contact_sum:
             r_ij = distance_array(self.reference.coordinates(), self.close_contacts.coordinates())
             r_ij.sort()
             r_ij = r_ij[0][0:self.n]
-        print r_ij
+        return r_ij
     
     def get_all_distances(self):
         """A method for looping over residues to obtain all distances"""
         for l in self.t:
             for i in self.u.atoms.residues.resids:
-    			self.distance_list.append(self.get_distances(i, l))
+    						key = str(i)+":"+str(l[0])
+    						self.distance_list[key] = self.get_distances(i, l)
             
     #def get_contact_sum(self, i, l):
         #"""A method for checking if selection exists"""
