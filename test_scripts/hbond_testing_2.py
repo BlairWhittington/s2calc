@@ -12,10 +12,10 @@ from Features import Features
 #initialize variables from the commandline
 
 PSF="/Users/atfrank/GitSoftware/s2calc/data/2l3e/reference.psf"
-DCD0="/Users/atfrank/GitSoftware/s2calc/data/2l3e/reference.pdb"
+DCD0="/Users/atfrank/GitSoftware/s2calc/data/2l3e/pool.dcd"
 universe = MDAnalysis.Universe(PSF, DCD0)
 new = Features(universe)
-#new.unique_HBtable()
+new.unique_HBtable()
 new.ts = 0
 new.loadCoordinateDependentDataStructures()
 new.residueLevelFeaturesCompute()
