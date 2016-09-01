@@ -102,7 +102,7 @@ class Features:
                 #hydrogen bonding
                 self.system['%s'%i]['hbond'] = self.hBondEnergyCompute(i)
                 #torsions
-                #self.system['%s'%i]['tors'] = self.tors(i)
+                self.system['%s'%i]['tors'] = self.tors(i)
                 #stacking interactions
                 self.system['%s'%i]['stacking'] = self.stackingEnergyCompute(i)
 
