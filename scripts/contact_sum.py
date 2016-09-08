@@ -1,6 +1,6 @@
 import MDAnalysis.lib.distances
 from MDAnalysis.lib.distances import distance_array
-import numpy as numpy
+import numpy as np
 
 class contact_sum:
     def __init__(self, u, t, n, r_cut, r_eff):
@@ -14,7 +14,8 @@ class contact_sum:
         self.Ci_list = []
                    
     def get_contacts(self, i , l):
-        """A method for computing contact sum"""
+        """A method for computing contact sum where i and l are the resid and bond vector 
+        of interest, respectively"""
         # Assign reference to first atom selection
         self.reference = self.u.select_atoms("resid %s and name %s" % (i, l[0]))                
         # Check to see if selections exist
@@ -26,20 +27,25 @@ class contact_sum:
             return True
             
     def get_distances(self, i, l):
-        """A method for sorting all distances within r_cut and for selecting the first 50"""
+        """A method for sorting and selecting the first 50 distances
+        where i and l are the resid and bond vector of interest, respectively"""
         selection = self.get_contacts(i, l)
         if selection:
+            global r_ij
             r_ij = distance_array(self.reference.coordinates(), self.close_contacts.coordinates())
             r_ij.sort()
-            r_ij = r_ij[0][0:self.n]
+            if r_ij.size < self.n:
+            	np.lib.pad(r_ij, (0, (self.n - r_ij.size)),'constant', constant_values=0)
+            else:
+                r_ij = r_ij[0][0:self.n]             
         return r_ij
     
     def get_all_distances(self):
         """A method for looping over residues to obtain all distances"""
         for l in self.t:
             for i in self.u.atoms.residues.resids:
-    						key = str(i)+":"+str(l[0])
-    						self.distance_list[key] = self.get_distances(i, l)
+                key = str(i)+":"+str(l[0])  
+                self.distance_list[key] = self.get_distances(i, l)
             
     #def get_contact_sum(self, i, l):
         #"""A method for checking if selection exists"""
