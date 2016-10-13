@@ -11,8 +11,9 @@ class contact_sum:
         self.r_cut = r_cut
         self.r_eff = r_eff
         self.distance_list = {}
+        self.keys = []
         self.Ci_list = []
-                   
+                     
     def get_contacts(self, i , l):
         """A method for computing contact sum where i and l are the resid and bond vector 
         of interest, respectively"""
@@ -31,22 +32,28 @@ class contact_sum:
         where i and l are the resid and bond vector of interest, respectively"""
         selection = self.get_contacts(i, l)
         if selection:
+            # Get distance array
             global r_ij
             r_ij = distance_array(self.reference.coordinates(), self.close_contacts.coordinates())
+            # Sort distances in array
             r_ij.sort()
-            if r_ij.size < self.n:
-            	np.lib.pad(r_ij, (0, (self.n - r_ij.size)),'constant', constant_values=0)
-            else:
-                r_ij = r_ij[0][0:self.n]             
+            # Pad array with zeros if size of array is less than given n
+            while r_ij.size <= self.n:
+                r_ij = np.append(r_ij, 0)
+            r_ij = r_ij[0:self.n]  
+            # Simply slice distance array if size of array is larger than given n 
+            if r_ij.size > self.n:
+                r_ij = r_ij[0][0:self.n]
         return r_ij
     
     def get_all_distances(self):
         """A method for looping over residues to obtain all distances"""
         for l in self.t:
             for i in self.u.atoms.residues.resids:
-                key = str(i)+":"+str(l[0])  
+            	key = i, l[0] 
+                #key = str(i)+":"+str(l[0])  
                 self.distance_list[key] = self.get_distances(i, l)
-            
+    
     #def get_contact_sum(self, i, l):
         #"""A method for checking if selection exists"""
         #Ci = -1 
