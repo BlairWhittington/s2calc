@@ -5,6 +5,7 @@ from scipy.special import ellipk, ellipe
 import MDAnalysis
 from math import pi, sin, cos, atan2, sqrt, pow, ceil, acos
 from MDAnalysis.analysis.distances import distance_array
+from MDAnalysis.analysis.align import *
 from multiprocessing import Queue, Process
 from MDAnalysis.analysis.hbonds import HydrogenBondAnalysis
 from MDAnalysis import Universe
@@ -556,8 +557,7 @@ class Features:
 
 def initialize_universe(PSF, DCD0, align = True, REF = "reference.pdb", DCD1 = "pool_align.dcd"):
     """ A method to set up universe for S2 calculation;
-    returns a universe that may or may not be aligned to some reference"""
-    from MDAnalysis.analysis.align import *
+    returns a universe that may or may not be aligned to some reference"""    
     # Load initial universe
     u = MDAnalysis.Universe(PSF, DCD0)
     # Test if alignment is requested; default is yes!
@@ -575,3 +575,10 @@ def write_reference(u, output_name, i=0):
     """ This function writes out a specific frame in a universe"""
     u.trajectory[i]
     u.atoms.write(output_name)
+
+def convert_name_to_code(name):
+		""" This function convert atom names into a dummy numeric code """
+		heavyatoms = {"C1'":0,"C2":1,"C5":2,"C6":3,"C8":4,"N1":5, "N3":6}
+		heavyatomscode = numpy.zeros(len(heavyatoms.keys()),dtype="int")
+		heavyatomscode[heavyatoms[name]] = 1
+		return heavyatomscode

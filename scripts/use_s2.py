@@ -25,8 +25,8 @@ def main():
 
         u = initialize_universe(PSF, DCD0)
         
-    	t = [("C1'", "H1'"), ("C2", "H2"), ("C5", "H5"), ("C6", "H6"), ("C8", "H8"), ("N1", "H1"), ("N3", "H3")]
-       
+        t = [("C1'", "H1'"), ("C2", "H2"), ("C5", "H5"), ("C6", "H6"), ("C8", "H8"), ("N1", "H1"), ("N3", "H3")]
+         
         nframes = len(u.trajectory)
         nresid = len(u.atoms.residues)    
    
@@ -50,13 +50,13 @@ def main():
         new.loadCoordinateDependentDataStructures()     
         new.residueLevelFeaturesCompute()
         
-             	
-    	### Table of keys, s2 order parameters, distances, stacking, tors, hbond ### 
-    	for lh, i, v in zip(s2.bond_vector_list_heavy, s2.resid_list, s2.s2_list):
-    		out = "%s %s %s %s %s %s %s %s" %(options.id, lh, i, v, new.system['%s'%i]['stacking'], new.system['%s'%i]['tors'], new.system['%s'%i]['hbond'], sum.distance_list[i, lh])
-    		out = ''.join(s for s in out if ord(s)>31 and ord(s)<126 and s not in '[]')
-    		print out
-    	
+              
+        ### Table of keys, s2 order parameters, distances, stacking, tors, hbond ### 
+        for lh, i, v in zip(s2.bond_vector_list_heavy, s2.resid_list, s2.s2_list):
+          if v != -1:
+            out = "%s %s %s %s %s %s %s %s %s" %(options.id, lh, convert_name_to_code(lh), i, v, new.system['%s'%i]['stacking'], new.system['%s'%i]['tors'], new.system['%s'%i]['hbond'], sum.distance_list[i, lh])
+            out = ''.join(s for s in out if ord(s)>31 and ord(s)<126 and s not in '[]')
+            print out      
     
 if __name__ == "__main__":
     main()
