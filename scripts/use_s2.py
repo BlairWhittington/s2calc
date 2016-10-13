@@ -50,12 +50,10 @@ def main():
         new.loadCoordinateDependentDataStructures()     
         new.residueLevelFeaturesCompute()
         
-        z= s2calc/data/${rna}
-        print z 
              	
     	### Table of keys, s2 order parameters, distances, stacking, tors, hbond ### 
     	for lh, i, v in zip(s2.bond_vector_list_heavy, s2.resid_list, s2.s2_list):
-    		out = "%s %s %s %s %s %s %s" %(lh, i, v, new.system['%s'%i]['stacking'], new.system['%s'%i]['tors'], new.system['%s'%i]['hbond'], sum.distance_list[i, lh])
+    		out = "%s %s %s %s %s %s %s %s" %(options.id, lh, i, v, new.system['%s'%i]['stacking'], new.system['%s'%i]['tors'], new.system['%s'%i]['hbond'], sum.distance_list[i, lh])
     		out = ''.join(s for s in out if ord(s)>31 and ord(s)<126 and s not in '[]')
     		print out
     	

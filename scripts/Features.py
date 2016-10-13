@@ -2,6 +2,7 @@ import sys, getopt
 import scipy.stats as stats
 import numpy, string
 from scipy.special import ellipk, ellipe
+import MDAnalysis
 from math import pi, sin, cos, atan2, sqrt, pow, ceil, acos
 from MDAnalysis.analysis.distances import distance_array
 from multiprocessing import Queue, Process
