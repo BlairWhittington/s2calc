@@ -12,6 +12,7 @@ class contact_sum:
         self.r_eff = r_eff
         self.distance_list = {}
         self.keys = []
+        self.resnames = []
         self.Ci_list = []
                      
     def get_contacts(self, i , l):
@@ -51,8 +52,14 @@ class contact_sum:
         for l in self.t:
             for i in self.u.atoms.residues.resids:
             	key = i, l[0] 
-                #key = str(i)+":"+str(l[0])  
                 self.distance_list[key] = self.get_distances(i, l)
+    
+    def get_resnames(self):
+    	for l in self.t:
+    		for i in self.u.atoms.residues.resnames:
+    			self.resnames.append(i)
+    	#for i in self.u.atoms.resnames:
+    		#self.resnames.append(i)
     
     #def get_contact_sum(self, i, l):
         #"""A method for checking if selection exists"""

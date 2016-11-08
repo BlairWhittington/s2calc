@@ -1,6 +1,7 @@
 import sys, getopt
 import scipy.stats as stats
 import numpy, string
+import MDAnalysis
 from scipy.special import ellipk, ellipe
 import MDAnalysis
 from math import pi, sin, cos, atan2, sqrt, pow, ceil, acos
@@ -577,8 +578,15 @@ def write_reference(u, output_name, i=0):
     u.atoms.write(output_name)
 
 def convert_name_to_code(name):
-		""" This function convert atom names into a dummy numeric code """
-		heavyatoms = {"C1'":0,"C2":1,"C5":2,"C6":3,"C8":4,"N1":5, "N3":6}
-		heavyatomscode = numpy.zeros(len(heavyatoms.keys()),dtype="int")
-		heavyatomscode[heavyatoms[name]] = 1
-		return heavyatomscode
+	""" This function converts atom names into a dummy numeric code """
+	heavyatoms = {"C1'":0,"C2":1,"C5":2,"C6":3,"C8":4,"N1":5, "N3":6}
+	heavyatomscode = numpy.zeros(len(heavyatoms.keys()),dtype="int")
+	heavyatomscode[heavyatoms[name]] = 1
+	return heavyatomscode
+		
+def convert_resname_to_code(resname):
+	""" This function converts resnames into dummy numeric code """
+	resnames = {"ADE": 0, "CYT": 1, "GUA": 2, "URA": 3}
+	resnamescode = numpy.zeros(len(resnames.keys()), dtype="int")
+	resnamescode[resnames[resname]] = 1
+	return resnamescode

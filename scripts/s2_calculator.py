@@ -98,7 +98,7 @@ class s2_calculator:
             self.resid_list.append(i)
             self.bond_vector_list_heavy.append(l[0])
             self.bond_vector_list_proton.append(l[1])
-            
+           
     def get_scatterplot(self):
         """A method for plotting s2 vs. residue number"""
         from matplotlib import pyplot

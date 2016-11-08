@@ -33,15 +33,16 @@ def main():
         ### Use for s2_calculator ###
         s2 = s2_calculator(u, t)
         s2.get_all_s2()
-        print s2.s2_list
+        #print s2.s2_list
         #s2.get_scatterplot()
         
         ### Use for contact_sum ###
         n=50
-        r_cut=10.0
+        r_cut=25.0
         r_eff=5.0
         sum = contact_sum(u, t, n, r_cut, r_eff)
         sum.get_all_distances()
+        sum.get_resnames()
         
         ### Use for Features### 
         new = Features(u)
@@ -52,11 +53,11 @@ def main():
         
               
         ### Table of keys, s2 order parameters, distances, stacking, tors, hbond ### 
-        for lh, i, v in zip(s2.bond_vector_list_heavy, s2.resid_list, s2.s2_list):
-          if v != -1:
-            out = "%s %s %s %s %s %s %s %s %s" %(options.id, lh, convert_name_to_code(lh), i, v, new.system['%s'%i]['stacking'], new.system['%s'%i]['tors'], new.system['%s'%i]['hbond'], sum.distance_list[i, lh])
-            out = ''.join(s for s in out if ord(s)>31 and ord(s)<126 and s not in '[]')
-            print out      
+        for lh, r, i, v in zip(s2.bond_vector_list_heavy, sum.resnames, s2.resid_list, s2.s2_list):
+            if v != -1:
+            	out = "%s %s %s %s %s %s %s %s %s" %(options.id, convert_name_to_code(lh), i, convert_resname_to_code(r), v, new.system['%s'%i]['stacking'], new.system['%s'%i]['tors'], new.system['%s'%i]['hbond'], sum.distance_list[i, lh])
+            	out = ''.join(s for s in out if ord(s)>31 and ord(s)<126 and s not in '[]' and s not in ',')
+            	print out      
     
 if __name__ == "__main__":
     main()

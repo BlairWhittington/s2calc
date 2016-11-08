@@ -8,6 +8,6 @@ rm -rf output/${r_cut}.txt
 	for rna in $rnas
 	do 
 		python scripts/use_s2.py -i ${rna} data/${rna}/reference.psf data/${rna}/pool.dcd | tee -a output/${r_cut}.txt
-		exit
+		#exit
 	done
 done
