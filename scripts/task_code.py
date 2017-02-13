@@ -2,7 +2,7 @@
 python
 import numpy as np
 import math
-dataset = np.loadtxt("15.0.txt", usecols = range(1, 80))
+dataset = np.loadtxt("10.0.txt", usecols = range(1, 80))
 y = dataset[:, 0]
 x = dataset[:, 1:]
 y.shape
@@ -10,7 +10,7 @@ x.shape
 
 ### Randomly split data into training and testing sets ###
 from sklearn.cross_validation import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.4, random_state=0) 
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.1, random_state=0) 
 x_train.shape, y_train.shape
 x_test.shape, y_test.shape
 
@@ -51,7 +51,7 @@ joblib.dump(reg, "LR_60Train_40Test.pkl", compress=3)
         
 ### Constructing Table of Features and Coefficients ###
 ### Convert regression coefficients to a list ###
-Regression_Coef = regr.coef_
+Regression_Coef = reg.coef_
 Regression_Coef.tolist()
 Features = ["C1'", "C2", "C5", "C6", "C8", "N1", "N3", "Resnum", "ADE", "CYT", "GUA", "URA", "Stacking", "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Chi", "nu0", "nu1", "nu2", "nu3", "nu4", "hEngery_base_base", "hEnergy_base_back", "hEnergy_back_back", "Dis_1", "Dis_2", "Dis_3", "Dis_4", "Dis_5", "Dis_6", "Dis_7", "Dis_8", "Dis_9", "Dis_10", "Dis_11", "Dis_12", "Dis_13", "Dis_14", "Dis_15", "Dis_16", "Dis_17", "Dis_18", "Dis_19", "Dis_20", "Dis_21", "Dis_22", "Dis_23", "Dis_24", "Dis_25", "Dis_26", "Dis_27", "Dis_28", "Dis_29", "Dis_30", "Dis_31", "Dis_32", "Dis_33", "Dis_34", "Dis_35", "Dis_36", "Dis_37", "Dis_38", "Dis_39", "Dis_40", "Dis_41", "Dis_42", "Dis_43", "Dis_44", "Dis_45", "Dis_46", "Dis_47", "Dis_48", "Dis_49", "Dis_50"]
 Features_List = list(range(78))
@@ -63,7 +63,7 @@ for l, c, d in zip(Features_List, Features, Regression_Coef):
 import numpy as np
 import matplotlib.pyplot as plt
 n_groups = 78
-Regression_Coef = Regression_Coef
+Regression_Coef = reg.feature_importances_
 fig, ax = plt.subplots()
 index = np.arange(n_groups)
 bar_width = 1.0

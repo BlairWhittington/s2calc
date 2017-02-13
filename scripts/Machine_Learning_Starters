@@ -1,0 +1,282 @@
+impythast login: Tue Nov 15 10:11:44 on console
+chem-afrankz-imac3:~ blairwhittington$ ls
+AdK_CORE.pdb		CORE.ndx		Library			Public			protein.xtc
+AdK_domain_rigidity.pdf	Desktop			Movies			Rgyr.pdf
+AdK_domain_rigidity.png	Documents		Music			git
+AdK_domain_rigidity.svg	Downloads		Pictures		mobile_on_ref.pdb
+chem-afrankz-imac3:~ blairwhittington$ cd Documents
+chem-afrankz-imac3:Documents blairwhittington$ ls
+Projects
+chem-afrankz-imac3:Documents blairwhittington$ cd Projects
+chem-afrankz-imac3:Projects blairwhittington$ ls
+s2calc
+chem-afrankz-imac3:Projects blairwhittington$ cd s2calc
+chem-afrankz-imac3:s2calc blairwhittington$ ls
+data		get_s2_Ci.sh	pool_align.dcd	scripts		test_scripts
+debugging	output		reference.pdb	test
+chem-afrankz-imac3:s2calc blairwhittington$ cd scripts
+chem-afrankz-imac3:scripts blairwhittington$ ls
+Features.py		contact_sum.py		pool.dcd		reference.psf		s2_calculator.pyc
+Features.pyc		contact_sum.pyc		pool_align.dcd		s2_calc_python.py	testing.py
+README.md		output.txt		reference.pdb		s2_calculator.py	use_s2.py
+chem-afrankz-imac3:scripts blairwhittington$ cd ..
+chem-afrankz-imac3:s2calc blairwhittington$ cd output
+chem-afrankz-imac3:output blairwhittington$ ls
+10.0.txt		20.0.txt		machine_learning_test
+15.0.txt		25.0.txt		test
+chem-afrankz-imac3:output blairwhittington$ vi 10.0.txt 
+chem-afrankz-imac3:output blairwhittington$ python
+Python 2.7.11 |Anaconda 4.1.0 (x86_64)| (default, Jun 15 2016, 16:09:16) 
+[GCC 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.11.00)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+Anaconda is brought to you by Continuum Analytics.
+Please check out: http://continuum.io/thanks and https://anaconda.org
+>>> from output load 10.txt
+  File "<stdin>", line 1
+    from output load 10.txt
+                   ^
+SyntaxError: invalid syntax
+>>> from output import 10.txt
+  File "<stdin>", line 1
+    from output import 10.txt
+                         ^
+SyntaxError: invalid syntax
+>>> exit
+Use exit() or Ctrl-D (i.e. EOF) to exit
+>>> 
+chem-afrankz-imac3:output blairwhittington$ ls
+10.0.txt		20.0.txt		machine_learning_test
+15.0.txt		25.0.txt		test
+chem-afrankz-imac3:output blairwhittington$ vi machine_learning_test/
+chem-afrankz-imac3:output blairwhittington$ vi 10.0.txt 
+chem-afrankz-imac3:output blairwhittington$ python
+Python 2.7.11 |Anaconda 4.1.0 (x86_64)| (default, Jun 15 2016, 16:09:16) 
+[GCC 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.11.00)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+Anaconda is brought to you by Continuum Analytics.
+Please check out: http://continuum.io/thanks and https://anaconda.org
+>>> import numpy
+>>> numpy.loadtxt("10.txt", delimiter=" ")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 803, in loadtxt
+    fh = iter(open(fname, 'U'))
+IOError: [Errno 2] No such file or directory: '10.txt'
+>>> dataset = numpy.loadtxt("10.0.txt", delimiter=" ")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 930, in loadtxt
+    items = [conv(val) for (conv, val) in zip(converters, vals)]
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 659, in floatconv
+    return float(x)
+ValueError: invalid literal for float(): 1xhp
+>>> dataset = numpy.loadtxt("15.0.txt", delimiter=" ")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 930, in loadtxt
+    items = [conv(val) for (conv, val) in zip(converters, vals)]
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 659, in floatconv
+    return float(x)
+ValueError: invalid literal for float(): 1xhp
+>>> dataset = numpy.loadtxt("15.0.txt", usecols = (1))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 790, in loadtxt
+    usecols = list(usecols)
+TypeError: 'int' object is not iterable
+>>> dataset = numpy.loadtxt("15.0.txt", delimiter=" ", usecols = range(1, ncols+1))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'ncols' is not defined
+>>> dataset = numpy.loadtxt("15.0.txt", delimiter=" ", usecols = range(1, 2))
+>>> dataset
+array([ 1.,  1.,  1., ...,  0.,  0.,  0.])
+>>> dataset = numpy.loadtxt("15.0.txt", delimiter=" ", usecols = range(1, 81))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 930, in loadtxt
+    items = [conv(val) for (conv, val) in zip(converters, vals)]
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 659, in floatconv
+    return float(x)
+ValueError: could not convert string to float: 
+>>> dataset = numpy.loadtxt("10.0.txt", delimiter=" ", usecols = range(1, 81))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 930, in loadtxt
+    items = [conv(val) for (conv, val) in zip(converters, vals)]
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 659, in floatconv
+    return float(x)
+ValueError: could not convert string to float: 
+>>> dataset = numpy.loadtxt("10.0.txt", delimiter=" ", usecols = range(2, 81))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 930, in loadtxt
+    items = [conv(val) for (conv, val) in zip(converters, vals)]
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 659, in floatconv
+    return float(x)
+ValueError: could not convert string to float: 
+>>> dataset = numpy.loadtxt("10.0.txt", usecols = range(2, 81))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 923, in loadtxt
+    vals = [vals[i] for i in usecols]
+IndexError: list index out of range
+>>> dataset = numpy.loadtxt("10.0.txt", usecols = range(2, 80))
+>>> dataset
+array([[ 1.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 1.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 1.        ,  0.        ,  0.        , ...,  8.03956157,
+         8.07946325,  8.27023424],
+       ..., 
+       [ 0.        ,  0.        ,  0.        , ...,  7.39416009,
+         7.49764843,  7.57345667],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 0.        ,  0.        ,  0.        , ...,  6.67581661,
+         6.76901314,  6.78838477]])
+>>> dataset = numpy.loadtxt("10.0.txt", usecols = range(1, 80))
+>>> dataset
+array([[ 0.59104304,  1.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 0.72963615,  1.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 0.75184223,  1.        ,  0.        , ...,  8.03956157,
+         8.07946325,  8.27023424],
+       ..., 
+       [ 0.12301893,  0.        ,  0.        , ...,  7.39416009,
+         7.49764843,  7.57345667],
+       [ 0.42844278,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 0.82218337,  0.        ,  0.        , ...,  6.67581661,
+         6.76901314,  6.78838477]])
+>>> dataset = numpy.loadtxt("10.0.txt", usecols = range(0, 80))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 930, in loadtxt
+    items = [conv(val) for (conv, val) in zip(converters, vals)]
+  File "//anaconda/lib/python2.7/site-packages/numpy/lib/npyio.py", line 659, in floatconv
+    return float(x)
+ValueError: invalid literal for float(): 1xhp
+>>> dataset = numpy.loadtxt("10.0.txt", usecols = range(1, 80))
+>>> dataset
+array([[ 0.59104304,  1.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 0.72963615,  1.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 0.75184223,  1.        ,  0.        , ...,  8.03956157,
+         8.07946325,  8.27023424],
+       ..., 
+       [ 0.12301893,  0.        ,  0.        , ...,  7.39416009,
+         7.49764843,  7.57345667],
+       [ 0.42844278,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 0.82218337,  0.        ,  0.        , ...,  6.67581661,
+         6.76901314,  6.78838477]])
+>>> dataset[1,:]
+array([   0.72963615,    1.        ,    0.        ,    0.        ,
+          0.        ,    0.        ,    0.        ,    0.        ,
+          2.        ,    1.        ,    0.        ,    0.        ,
+          0.        ,    2.        ,  -73.276505  ,  177.62636   ,
+         61.839622  ,   76.895973  ,  156.10431   ,   38.293362  ,
+       -159.46472   ,   36.58569   ,  -33.484226  ,   17.591602  ,
+          6.7958107 ,  -27.129629  ,    2.        ,    1.        ,
+          0.        ,    4.2005616 ,    4.22528716,    4.25015523,
+          4.40200781,    4.42708328,    4.60915519,    4.62175939,
+          4.76904509,    4.802998  ,    4.91736781,    4.91835569,
+          5.03440937,    5.06109792,    5.15615976,    5.26641437,
+          5.46468329,    5.4678081 ,    5.5736061 ,    5.58932203,
+          5.6145326 ,    5.73997924,    5.81482522,    5.8459609 ,
+          5.9444239 ,    6.33719001,    6.42836299,    6.43422305,
+          6.43720914,    6.44568283,    6.5939571 ,    6.61416049,
+          6.93765449,    6.99077049,    7.29251517,    7.36536672,
+          7.5519226 ,    7.87566353,    8.13558551,    8.2064504 ,
+          8.43429305,    8.51888193,    8.5855898 ,    9.01831834,
+          9.0850733 ,    9.55156985,    9.55841381,    0.        ,
+          0.        ,    0.        ,    0.        ])
+>>> dataset[0,:]
+array([  5.91043042e-01,   1.00000000e+00,   0.00000000e+00,
+         0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+         0.00000000e+00,   0.00000000e+00,   1.00000000e+00,
+         0.00000000e+00,   0.00000000e+00,   1.00000000e+00,
+         0.00000000e+00,   1.00000000e+00,   9.99990000e+03,
+         9.99990000e+03,   6.94898610e+01,   7.44620820e+01,
+        -1.44404240e+02,  -6.60250240e+01,  -1.52967770e+02,
+         3.76745030e+01,  -3.48182450e+01,   1.42622080e+01,
+         1.07283460e+01,  -3.14105050e+01,   3.00000000e+00,
+         0.00000000e+00,   0.00000000e+00,   4.75899016e+00,
+         4.79939621e+00,   4.80780052e+00,   4.92172462e+00,
+         4.96490836e+00,   5.27773004e+00,   5.34322576e+00,
+         5.45159905e+00,   5.73997924e+00,   5.80910098e+00,
+         6.08375365e+00,   6.16372638e+00,   6.29536294e+00,
+         6.83510123e+00,   7.02858580e+00,   7.08884565e+00,
+         7.30206501e+00,   7.41136732e+00,   7.48514750e+00,
+         7.77707890e+00,   7.87465188e+00,   7.89568243e+00,
+         8.02591198e+00,   8.07402545e+00,   8.12034294e+00,
+         8.34226047e+00,   8.41964285e+00,   8.43430508e+00,
+         8.49406069e+00,   8.73813798e+00,   8.96919426e+00,
+         9.13655202e+00,   9.23139320e+00,   9.34141594e+00,
+         9.53017138e+00,   9.57557304e+00,   9.98023320e+00,
+         0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+         0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+         0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+         0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
+         0.00000000e+00])
+>>> dataset[:,0]
+array([ 0.59104304,  0.72963615,  0.75184223, ...,  0.12301893,
+        0.42844278,  0.82218337])
+>>> dataset[:,0].shape()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'tuple' object is not callable
+>>> dataset[:,0].nrows
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'numpy.ndarray' object has no attribute 'nrows'
+>>> dataset.shape
+(1200, 79)
+>>> dataset.nrows
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'numpy.ndarray' object has no attribute 'nrows'
+>>> dataset.nrow
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'numpy.ndarray' object has no attribute 'nrow'
+>>> dataset.shape
+(1200, 79)
+>>> dataset.shape[0]
+1200
+>>> dataset.shape[1]
+79
+>>> dataset[:,:1]
+array([[ 0.59104304],
+       [ 0.72963615],
+       [ 0.75184223],
+       ..., 
+       [ 0.12301893],
+       [ 0.42844278],
+       [ 0.82218337]])
+>>> dataset[:, 1:]
+array([[ 1.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 1.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 1.        ,  0.        ,  0.        , ...,  8.03956157,
+         8.07946325,  8.27023424],
+       ..., 
+       [ 0.        ,  0.        ,  0.        , ...,  7.39416009,
+         7.49764843,  7.57345667],
+       [ 0.        ,  0.        ,  0.        , ...,  0.        ,
+         0.        ,  0.        ],
+       [ 0.        ,  0.        ,  0.        , ...,  6.67581661,
+         6.76901314,  6.78838477]])
+>>> dataset[:, 0]
+array([ 0.59104304,  0.72963615,  0.75184223, ...,  0.12301893,
+        0.42844278,  0.82218337])
+>>> y = dataset[:, 0]
+>>> X = dataset[:, 1:]
+>>> X.shape
+(1200, 78)
+>>> 
