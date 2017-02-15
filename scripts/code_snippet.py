@@ -41,7 +41,6 @@ max_features = 1.0
 min_samples_leaf = 5
 min_samples_split = 5
 n_estimators = 1000
-
 # RF
 reg = RandomForestRegressor(bootstrap=True,criterion='mse', max_depth=None, max_features=max_features, min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_split,n_estimators=n_estimators, n_jobs=1, oob_score=True, random_state=None,verbose=0)
 # Train model
