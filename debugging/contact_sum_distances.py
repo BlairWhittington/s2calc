@@ -12,7 +12,7 @@ DCD0="../test/pool.dcd"
 
 u = initialize_universe(PSF, DCD0)
 
-t = [("C1'", "H1'"), ("C2", "H2"), ("C5", "H5"), ("C6", "H6"), ("C8", "H8"), ("N1", "H1"), ("N3", "H3")]
+#t = [("C1'", "H1'"), ("C2", "H2"), ("C5", "H5"), ("C6", "H6"), ("C8", "H8"), ("N1", "H1"), ("N3", "H3")]
 t = [("C1'", "H1'")]
 nframes = len(u.trajectory)
 nresid = len(u.atoms.residues)    
@@ -21,7 +21,6 @@ nresid = len(u.atoms.residues)
 s2 = s2_calculator(u, t)
 s2.get_all_s2()
 #s2.get_scatterplot()
-#print s2.s2_list
 
 ### Use for contact_sum ###
 n=50
