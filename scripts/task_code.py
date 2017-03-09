@@ -2,9 +2,9 @@
 python
 import numpy as np
 import math
-dataset = np.loadtxt("15.0.txt", usecols = range(1, 80))
+dataset = np.loadtxt("10.0.All.txt", usecols = range(1, 80))
 y = dataset[:, 0]
-x = dataset[:, 1:29]
+x = dataset[:, 1]
 y.shape
 x.shape
 

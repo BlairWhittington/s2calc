@@ -19,7 +19,7 @@ class model_building:
 		
 	def get_training_testing(self, y, x):
 		"""A method for obtaining training and testing sets"""
-		dataset = np.loadtxt("15.0.txt", usecols = range(1, 80))	
+		dataset = np.loadtxt("10.0.All.txt", usecols = range(1, 80))	
 		y = dataset[:, 0]
 		x = dataset[:, 1]
 		y.shape, x.shape 
@@ -65,3 +65,8 @@ class model_building:
 		print(reg.feature_importances_)
 		# Save model 
 		joblib.dump(reg, "ERT_r_cut.pkl", compress=3)
+		
+### Load Saved Model
+from sklearn.externals import joblib
+loaded_model = joblib.load("")
+

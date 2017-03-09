@@ -38,7 +38,7 @@ def main():
         
         ### Use for contact_sum ###
         n=50
-        r_cut=15.0
+        r_cut=10.0
         r_eff=5.0
         sum = contact_sum(u, t, n, r_cut, r_eff)
         sum.get_all_distances()
