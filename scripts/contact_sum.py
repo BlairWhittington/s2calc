@@ -58,6 +58,7 @@ class contact_sum:
     	for l in self.t:
     		for i in self.u.atoms.residues.resnames:
     			self.resnames.append(i)
+    			
     	#for i in self.u.atoms.resnames:
     		#self.resnames.append(i)
     

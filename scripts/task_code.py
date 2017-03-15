@@ -4,7 +4,7 @@ import numpy as np
 import math
 dataset = np.loadtxt("10.0.All.txt", usecols = range(1, 80))
 y = dataset[:, 0]
-x = dataset[:, 1]
+x = dataset[:, 1:]
 y.shape
 x.shape
 

@@ -21,7 +21,7 @@ class model_building:
 		"""A method for obtaining training and testing sets"""
 		dataset = np.loadtxt("10.0.All.txt", usecols = range(1, 80))	
 		y = dataset[:, 0]
-		x = dataset[:, 1]
+		x = dataset[:, 1:]
 		y.shape, x.shape 
 		x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.4, random_state=0) 
 		x_train.shape, y_train.shape
