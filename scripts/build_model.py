@@ -31,10 +31,8 @@ class model_building:
 		"""A method for training the linear regression model"""
 		reg = linear_model.LinearRegression()
 		reg.fit(x_train, y_train)
-		rmse = math.sqrt(np.mean((reg.predict(x_test)-y_test)**2))
-		print rmse
-		explained_variance = reg.score(x_test, y_test) 
-		print explained_variance
+		print math.sqrt(np.mean((reg.predict(x_test)-y_test)**2))
+		print reg.score(x_test, y_test) 
 		print(reg.coef_)
 		joblib.dump(reg, "LR_r_cut.pkl", compress=3)
 		
