@@ -32,14 +32,23 @@ s2.tolist()
 ### Save predictive model ###
 joblib.dump(reg, "LR_10.0A_2l3e.pkl", compress=3) 
 
-
+### Plotting ###
+#Could import txt.files with data, plot all 7 bond vectors and complete for 15A, 20A, and 25A
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
-import numpy as np
-
-x = np.arange(10)
-plt.gca().set_color_cycle(['red', 'blue'])
-
-plt.plot
-
-("C1', H1'") -> b = a[0:35] 
+from matplotlib import pyplot
+from np import arange
+import bisect
+x = resid_index
+y1 = predicted_s2
+y2 = computed_s2
+pyplot.title('s2 Order Parameters vs. Resid Index')
+pyplot.plot(x,y1, marker='o', linestyle='-', color='r')
+pyplot.plot(x,y2, marker='o', linestyle='-', color='b')
+pyplot.xlabel('Residue Index')
+pyplot.ylabel('s2 Order Parameters')
+red_patch = mpatches.Patch(color='red', label='Predicted s2 Order Parameters')
+blue_patch = mpatches.Patch(color='blue', label='Computed s2 Order Parameters')
+plt.legend(handles=[red_patch, blue_patch])
+pyplot.show()
 
