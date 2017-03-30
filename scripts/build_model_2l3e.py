@@ -77,29 +77,21 @@ y = [0.6384418447989992, 0.8334062959431285, 0.8378405896281069, 0.7191664900095
 # Title Plot
 plt.title('Actual vs. Predicted s2 Order Parameters for 2l3e')
 # (C1', H1')
-plt.plot(x[0:35],y[0:35], marker='o', linestyle='None', color='r')
+plt.plot(x[0:35],y[0:35], marker='o', linestyle='None', color='r', label="(C1', H1')")
 # (C2, H2)
-plt.plot(x[35:40],y[35:40], marker='o', linestyle='None', color='k')
+plt.plot(x[35:40],y[35:40], marker='o', linestyle='None', color='k', label="(C2, H2)")
 # (C5, H5)
-plt.plot(x[40:60],y[40:60], marker='o', linestyle='None', color='g')
+plt.plot(x[40:60],y[40:60], marker='o', linestyle='None', color='g', label="(C5, H5)")
 # (C6, H6)
-plt.plot(x[60:80],y[60:80], marker='o', linestyle='None', color='b')
+plt.plot(x[60:80],y[60:80], marker='o', linestyle='None', color='b', label="(C6, H6)")
 # (C8, H8)
-plt.plot(x[80:95],y[80:95], marker='o', linestyle='None', color='m')
+plt.plot(x[80:95],y[80:95], marker='o', linestyle='None', color='m', label="(C8, H8)")
 # (N1, H1)
-plt.plot(x[95:105],y[95:105], marker='o', linestyle='None', color='y')
+plt.plot(x[95:105],y[95:105], marker='o', linestyle='None', color='y', label="(N1, H1)")
 # (N3, H3)
-plt.plot(x[105:113],y[105:113], marker='o', linestyle='None', color='c')
-# Create legend for all seven bond vectors
-red_line = mlines.Line2D([],[], color='red', marker='o', markersize=8, label="(C1', H1')")
-black_line = mlines.Line2D([],[], color='black', marker='o', markersize=8, label="(C2, H2)")
-green_line = mlines.Line2D([],[], color='green', marker='o', markersize=8, label="(C5, H5)")
-blue_line = mlines.Line2D([],[], color='blue', marker='o', markersize=8, label="(C6, H6)")
-magenta_line = mlines.Line2D([],[], color='magenta', marker='o', markersize=8, label="(C8, H8)")
-yellow_line = mlines.Line2D([],[], color='yellow', marker='o', markersize=8, label="(N1, H1)")
-cyan_line = mlines.Line2D([],[], color='cyan', marker='o', markersize=8, label="(N3, H3)")
-# Plot legend
-plt.legend(handles=[red_line, black_line, green_line, blue_line, magenta_line, yellow_line, cyan_line])
+plt.plot(x[105:113],y[105:113], marker='o', linestyle='None', color='c', label="(N3, H3)")
+# Create Legend
+plt.legend(bbox_to_anchor=(0.05, 0.7), loc=6, borderaxespad=0.)
 # Label x-axis
 plt.xlabel('Actual 2l3e s2 Order Parameters')
 # Label y-axis
