@@ -1,0 +1,7 @@
+scipy.stats.kendalltau(x, y, initial_lexsort=None, nan_policy='propagate')
+from scipy import stats
+x1 = []
+x2 = []
+tau, p_value =  stats.kendalltau(x1, x2)
+tau
+p-value 

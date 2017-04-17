@@ -20,5 +20,10 @@ s2_diff (predicted_LR - predicted_RF) = [-0.04887037427677776, 0.139040195463612
 
 
 
-
+Measured/LR:
+Kendalltau = 0.54621848739495782
+p_value = 3.9221558516169741e-06
  
+Measured/RF:
+Kendalltau = 0.43529411764705866
+p_value = 0.00023491263403676015

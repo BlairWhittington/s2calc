@@ -11,9 +11,9 @@ min_samples_split = 5
 n_estimators = 1000
 
 ### Load in training set which contains information for all RNAs but 2l3e ###	
-training = np.loadtxt("15.0.train.txt", usecols = range(1, 80))	
+training = np.loadtxt("20.0.train.txt", usecols = range(1, 80))	
 ### Load in testing set which contains information for only 2l3e ###
-testing = np.loadtxt("15.0.2l3e.txt", usecols = range(1,80))
+testing = np.loadtxt("20.0.2l3e.txt", usecols = range(1,80))
 ### Divide training and testing sets into s2 order parameters and features ###
 y_train = training[:, 0] #s2 order parameters for all RNAs expect 2l3e
 x_train = training[:, 1:] #features for all RNAs except 2l3e
@@ -52,7 +52,7 @@ x = resid_index
 y1 = predicted_LR
 y2 = predicted_RF
 y3 = measured_s2
-plt.ylim(0.5, 1.1)
+plt.ylim(0.3, 1.1)
 plt.title('s2 Order Parameters vs. Residue Index')
 plt.plot(x,y1, marker='o', linestyle='-', color='b')
 plt.plot(x,y2, marker='o', linestyle='-', color='k')
@@ -75,7 +75,7 @@ for i in x:
 y1 = (measured - predicted_LR)
 y2 = (measured - predicted_RF)
 y3 = (predicted_LR - predicted_RF)
-plt.ylim(-0.10, 0.4)
+plt.ylim(-0.15, 0.35)
 plt.title('Difference in s2 Order Parameters vs. Residue Index')
 plt.plot(x,y1, marker='o', linestyle='-', color='b')
 plt.plot(x, y2, marker='o', linestyle='-', color='k')
