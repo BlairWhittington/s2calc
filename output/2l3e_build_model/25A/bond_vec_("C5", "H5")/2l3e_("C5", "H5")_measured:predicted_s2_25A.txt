@@ -1,0 +1,17 @@
+# resid_index #
+x = [3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 18, 19, 20, 21, 24, 26, 34, 35]
+
+# s2_predicted_LR #
+y1 = 
+
+# s2_predicted_RF #
+y2 = 
+
+# s2_measured #
+y3 =
+
+# s2_diff(measured - predicted_LR) #
+y1 =
+
+# s2_diff(measured - predicted_RF #
+y2 = 
