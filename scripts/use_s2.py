@@ -50,7 +50,7 @@ def main():
         new.ts = 0
         new.loadCoordinateDependentDataStructures()     
         new.residueLevelFeaturesCompute()
-        
+   
               
         ### Table of keys, s2 order parameters, distances, stacking, tors, hbond ### 
         for lh, r, i, v in zip(s2.bond_vector_list_heavy, sum.resnames, s2.resid_list, s2.s2_list):
@@ -58,7 +58,7 @@ def main():
             	out = "%s %s %s %s %s %s %s %s %s" %(options.id, v, convert_name_to_code(lh), i, convert_resname_to_code(r), new.system['%s'%i]['stacking'], new.system['%s'%i]['tors'], new.system['%s'%i]['hbond'], sum.distance_list[i, lh])
             	out = ''.join(s for s in out if ord(s)>31 and ord(s)<126 and s not in '[]' and s not in ',')
             	print out      
-    
+     
 if __name__ == "__main__":
     main()
     
