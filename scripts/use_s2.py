@@ -50,8 +50,7 @@ def main():
         new.ts = 0
         new.loadCoordinateDependentDataStructures()     
         new.residueLevelFeaturesCompute()
-   
-              
+        
         ### Table of keys, s2 order parameters, distances, stacking, tors, hbond ### 
         for lh, r, i, v in zip(s2.bond_vector_list_heavy, sum.resnames, s2.resid_list, s2.s2_list):
             if v != -1:

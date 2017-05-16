@@ -13,9 +13,9 @@ n_estimators = 1000
 def load_set():
 	"""A function for loading data set"""
 	### Load in training set which contains information for all RNAs but 2l3e ###	
-	training = np.loadtxt("20.0.train.txt", usecols = range(1, 80))	
+	training = np.loadtxt("20.0A.2l3e_train.txt", usecols = range(1, 80))	
 	### Load in testing set which contains information for only 2l3e ###
-	testing = np.loadtxt("20.0.2l3e.txt", usecols = range(1,80))
+	testing = np.loadtxt("20.0A.2l3e.txt", usecols = range(1,80))
 	### Divide training and testing sets into s2 order parameters and features ###
 	global y_train
 	global x_train
