@@ -38,7 +38,7 @@ def main():
         
         ### Use for contact_sum ###
         n=50
-        r_cut=10.0
+        r_cut=25.0
         r_eff=5.0
         sum = contact_sum(u, t, n, r_cut, r_eff)
         sum.get_all_distances()
@@ -51,12 +51,14 @@ def main():
         new.loadCoordinateDependentDataStructures()     
         new.residueLevelFeaturesCompute()
         
-        ### Table of keys, s2 order parameters, distances, stacking, tors, hbond ### 
+     
+        ### Table of keys, s2 order parameters, distances, stacking, tors, hbond ###           
         for lh, r, i, v in zip(s2.bond_vector_list_heavy, sum.resnames, s2.resid_list, s2.s2_list):
             if v != -1:
-            	out = "%s %s %s %s %s %s %s %s %s" %(options.id, v, convert_name_to_code(lh), i, convert_resname_to_code(r), new.system['%s'%i]['stacking'], new.system['%s'%i]['tors'], new.system['%s'%i]['hbond'], sum.distance_list[i, lh])
+            	out = "%s %s %s %s %s %s %s %s" %(options.id, v, convert_name_to_code(lh), convert_resname_to_code(r), new.system['%s'%i]['stacking'], new.system['%s'%i]['tors'], new.system['%s'%i]['hbond'], sum.distance_list[i, lh])
             	out = ''.join(s for s in out if ord(s)>31 and ord(s)<126 and s not in '[]' and s not in ',')
             	print out      
+     
      
 if __name__ == "__main__":
     main()
