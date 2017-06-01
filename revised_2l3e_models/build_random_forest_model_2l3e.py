@@ -23,9 +23,11 @@ class build_random_forest_model:
     def load_set(self):
         """A method for loading and splitting dataset"""
         ### Load in dataset that contains s2 order parameter and features information for all RNAs except 2l3e ###
-        training = np.loadtxt("25.0A_2l3e_train_updated.txt", usecols=range(1, 79))
+        #training = np.loadtxt("25.0A_2l3e_train_updated.txt", usecols=range(1, 79))
+        training = np.loadtxt("25.0A_2l3e_append_train.txt", usecols=range(1, 80))
         ### Load in testing set which contains information for only 2l3e ###
-        testing = np.loadtxt("25.0A_2l3e_test_updated.txt", usecols=range(1, 79))
+        #testing = np.loadtxt("25.0A_2l3e_test_updated.txt", usecols=range(1, 79))
+        testing = np.loadtxt("25.0A_2l3e_append_test.txt", usecols=range(1, 80))
         ### Divide training and testing sets into s2 order parameters and features ###
         self.y_train = training[:, 0]  # s2 order parameters for all RNAs except 2l3e
         self.x_train = training[:, 1:]  # features for all RNAs except 2l3e
@@ -48,7 +50,8 @@ class build_random_forest_model:
                                      random_state=None, verbose=0)
         self.reg.fit(self.x_train, self.y_train)
         ### Save Random Forest Model ###
-        joblib.dump(self.reg, "2l3e_RF_25.0A.pkl", compress=3)
+        #joblib.dump(self.reg, "2l3e_RF_25.0A.pkl", compress=3)
+        joblib.dump(self.reg, "2l3e_append_RF_25.0A.pkl", compress=3)
 
     def compute_rmse(self):
         """A method for computing RMSE"""
@@ -88,7 +91,8 @@ class build_random_forest_model:
 
     def plot_features(self):
         """A method for plotting regression coefficients vs. features for Random Forest Model"""
-        n_groups = 77
+        #n_groups = 77
+        n_groups = 78
         fig, ax = plt.subplots()
         index = np.arange(n_groups)
         bar_width = 1.0
@@ -227,7 +231,7 @@ class build_random_forest_model:
         blue_line = mlines.Line2D([],[], color='blue', marker='o', markersize=8,
                                   label='Measured - Predicted s2 Order Parameters (RF)')
         plt.legend(handles=[blue_line])
-        plt.ylim(-0.3, 0.45)
+        plt.ylim(-0.3, 0.7)
         plt.xlabel('Residue Index')
         plt.ylabel('Difference in s2 Order Parameters')
         plt.show()
@@ -242,7 +246,7 @@ class build_random_forest_model:
         blue_line = mlines.Line2D([], [], color='blue', marker='o', markersize=8,
                                   label='Measured - Predicted s2 Order Parameters (RF)')
         plt.legend(handles=[blue_line])
-        plt.ylim(-0.03, 0.14)
+        plt.ylim(-0.03, 0.2)
         plt.xlabel('Residue Index')
         plt.ylabel('Difference in s2 Order Parameters')
         plt.show()
